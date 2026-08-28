@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/css/style.css">
+	<title>Estudiantes | Sistema Cloud</title>
+</head>
+<body class="students-page">
+	<main class="students-shell">
+		<header class="students-header">
+			<div>
+				<p class="eyebrow">Instituto Profesional Santo Tomás</p>
+				<h1>Registro de estudiantes</h1>
+				<p class="intro">Administrá la información académica desde un solo lugar.</p>
+			</div>
+			<span class="record-count" id="recordCount">0 registros</span>
+		</header>
+
+		<section class="student-form-panel" aria-labelledby="formTitle">
+			<h2 id="formTitle">Agregar estudiante</h2>
+			<form id="studentForm">
+				<input type="hidden" id="studentId">
+				<div class="form-grid">
+					<label>Nombre completo<input id="name" type="text" placeholder="Ej. Camila Rojas" required></label>
+					<label>RUT<input id="rut" type="text" placeholder="12.345.678-9" required></label>
+					<label>Curso<input id="course" type="text" placeholder="Ej. 3° Medio A" required></label>
+					<label>Correo electrónico<input id="email" type="email" placeholder="estudiante@correo.cl" required></label>
+				</div>
+				<div class="form-actions">
+					<button class="primary-button" type="submit" id="submitButton">Agregar estudiante</button>
+					<button class="secondary-button hidden" type="button" id="cancelButton">Cancelar edición</button>
+				</div>
+			</form>
+		</section>
+
+		<section class="table-panel" aria-labelledby="tableTitle">
+			<div class="table-heading">
+				<h2 id="tableTitle">Estudiantes registrados</h2>
+				<label class="search-label">Buscar<input id="searchInput" type="search" placeholder="Nombre, RUT o curso"></label>
+			</div>
+			<div class="table-wrapper">
+				<table>
+					<thead>
+						<tr><th>Nombre</th><th>RUT</th><th>Curso</th><th>Correo</th><th>Acciones</th></tr>
+					</thead>
+					<tbody id="studentTableBody"></tbody>
+				</table>
+				<p class="empty-state" id="emptyState">Todavía no hay estudiantes registrados.</p>
+			</div>
+		</section>
+	</main>
+<script src="/js/tabla.js"></script>
+</body>
+</html>
