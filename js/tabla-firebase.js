@@ -1,4 +1,4 @@
-import { db } from "/firebase-config.js";
+import { db } from "/js/firebase-config.js";
 import {
 	collection,
 	addDoc,
@@ -28,9 +28,9 @@ const tableBody = document.getElementById("studentTableBody");
 const emptyState = document.getElementById("emptyState");
 const recordCount = document.getElementById("recordCount");
 
-let students = []; // cache local para poder filtrar sin volver a pedir a Firestore
+let students = []; 
 
-// --- Escucha en tiempo real: cualquier cambio en Firestore se refleja solo ---
+
 onSnapshot(q, (snapshot) => {
 	students = snapshot.docs.map((docSnap) => ({
 		id: docSnap.id,
@@ -39,7 +39,7 @@ onSnapshot(q, (snapshot) => {
 	renderTable(students);
 });
 
-// --- Renderizar tabla ---
+
 function renderTable(list) {
 	const filterText = searchInput.value.trim().toLowerCase();
 	const filtered = filterText
@@ -77,7 +77,7 @@ function escapeHtml(text) {
 	return div.innerHTML;
 }
 
-// --- Agregar o actualizar estudiante ---
+
 form.addEventListener("submit", async (event) => {
 	event.preventDefault();
 
@@ -108,7 +108,7 @@ form.addEventListener("submit", async (event) => {
 	}
 });
 
-// --- Editar / Eliminar (delegación de eventos) ---
+
 tableBody.addEventListener("click", async (event) => {
 	const id = event.target.dataset.id;
 	if (!id) return;
@@ -141,7 +141,7 @@ tableBody.addEventListener("click", async (event) => {
 	}
 });
 
-// --- Cancelar edición ---
+
 cancelButton.addEventListener("click", resetForm);
 
 function resetForm() {
@@ -151,5 +151,5 @@ function resetForm() {
 	cancelButton.classList.add("hidden");
 }
 
-// --- Buscador ---
+
 searchInput.addEventListener("input", () => renderTable(students));
