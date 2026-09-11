@@ -30,6 +30,24 @@ const recordCount = document.getElementById("recordCount");
 
 let students = []; 
 
+export function validarRut(rut) {
+	// Validación simple de formato chileno: 12.345.678-9 o 12345678-9
+	const limpio = rut.replace(/\./g, "").replace(/-/g, "");
+	if (!/^\d{7,8}[0-9kK]$/.test(limpio)) return false;
+
+	const cuerpo = limpio.slice(0, -1);
+	const dv = limpio.slice(-1).toUpperCase();
+
+	let suma = 0, multiplo = 2;
+	for (let i = cuerpo.length - 1; i >= 0; i--) {
+		suma += parseInt(cuerpo[i]) * multiplo;
+		multiplo = multiplo === 7 ? 2 : multiplo + 1;
+	}
+	const resto = 11 - (suma % 11);
+	const dvEsperado = resto === 11 ? "0" : resto === 10 ? "K" : String(resto);
+
+	return dv === dvEsperado;
+}
 
 onSnapshot(q, (snapshot) => {
 	students = snapshot.docs.map((docSnap) => ({
@@ -87,6 +105,12 @@ form.addEventListener("submit", async (event) => {
 		course: courseInput.value.trim(),
 		email: emailInput.value.trim()
 	};
+
+	// Validar RUT
+	if (!validarRut(payload.rut)) {
+		alert("RUT inválido.");
+		return;
+	}
 
 	try {
 		submitButton.disabled = true;
